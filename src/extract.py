@@ -60,5 +60,4 @@ imagens = extractor.listar_imagens()
 # %%
 imagem = extractor.carregar_imagem(imagens[0])
 type(imagem)
-
 # %%
