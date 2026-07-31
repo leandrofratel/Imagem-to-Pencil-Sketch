@@ -2,11 +2,9 @@
 Extract:
 Camada responsável por receber os as imagens e coletar os metadados...
 """
-
 #%% Import da bibliotexas
 from pathlib import Path
 import cv2
-
 
 #%%
 class ImageExtractor:
@@ -35,12 +33,13 @@ class ImageExtractor:
 
     def carregar_imagem(self, caminho_imagem: Path):
         """Recebe um `Path` e retorna a imagem carregada em memória."""
-
-        # Receber um Path
-        # Ler imagem com `cv2.imread()`
+        # Receber o arquivo e converter em matriz
+        imagem = cv2.imread(str(caminho_imagem))
         # Verificr se a leitura foi bem-sucedida (!= None)
+        if imagem is None:
+            raise ValueError(f"Erro ao carregar imagem {caminho_imagem}")
         # Retornar a matriz de imagem
-        pass
+        return imagem
 
     def coletar_metadados(self):
         """..."""
@@ -56,7 +55,10 @@ extractor = ImageExtractor(RAW_DATA)
 
 #%% teste Init
 extractor.raw_path
-
 #%% teste lista de imagens
 imagens = extractor.listar_imagens()
+# %%
+imagem = extractor.carregar_imagem(imagens[0])
+type(imagem)
+
 # %%
