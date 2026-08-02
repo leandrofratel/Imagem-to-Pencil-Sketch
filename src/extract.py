@@ -76,30 +76,32 @@ class ImageExtractor:
             **metadados_imagem
         }
 
-    def extrair(self) -> dict:
+    def extrair(self) -> list:
         """Orquestra a sequência de execução dos métodos da classe."""
-        # Lista vazia que armazena os registros
-        # Percorrer cada resultado de `listar_imagens()`
-        # Carregar cada imagem dentro do for
-        # Coletar metadados
-        # Montar um único registro
-        # Adicionar este registro a lista
-        ...
+
+        # Lista que armazenará todos os registros
+        registros = []
+
+        # Percorre todas as imagens da RAW
+        for caminho in self.listar_imagens():
+            imagem = self.carregar_imagem(caminho)
+            metadados = self.coletar_metadados(caminho, imagem)
+
+            registro = {
+                "caminho": caminho,
+                "matriz": imagem,
+                "metadados": metadados
+            }
+
+            # Adiciona o regitro a lista
+            registros.append(registro)
+
+        return registros
 
 #%% Execução da Classe
 RAW_DATA = Path("../data/raw")
 extractor = ImageExtractor(RAW_DATA)
 
-#%% Obter a lista de imagens
-#* Define as imagens
-imagem = extractor.listar_imagens()
-# %%
-#* Define os caminhos
-caminho = imagem[0]
-# %%
-#* Extrair imagem
-imagem = extractor.carregar_imagem(caminho)
 #%%
-#* Realiza a coleta dos metadados
-metadados = extractor.coletar_metadados(caminho, imagem)
-# %%
+registros = extractor.extrair()
+
