@@ -1,11 +1,13 @@
 """Camada responsável por receber os as imagens e coletar os metadados
 """
+#%%
 #Import da bibliotexas
 from datetime import datetime
 from pathlib import Path
 import numpy
 import cv2
 
+#%%
 class ImageExtractor:
     """Extrai os caminhos de arquivos de imagem de uma pasta RAW."""
     # Definição das extensões
@@ -93,8 +95,7 @@ class ImageExtractor:
         return registros
 
 # Execução
-if __name__=="__main__":
-
-    RAW_DATA = Path("../data/raw")
-    extractor = ImageExtractor(RAW_DATA)
-    registros = extractor.extrair()
+# %%
+RAW_DATA = Path("../data/raw")
+extractor = ImageExtractor(RAW_DATA)
+registros = extractor.extrair()
