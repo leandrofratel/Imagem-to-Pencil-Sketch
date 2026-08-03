@@ -1,14 +1,11 @@
+"""Camada responsável por receber os as imagens e coletar os metadados
 """
-Extract:
-Camada responsável por receber os as imagens e coletar os metadados...
-"""
-#%% Import da bibliotexas
+#Import da bibliotexas
 from datetime import datetime
 from pathlib import Path
 import numpy
 import cv2
 
-#%%
 class ImageExtractor:
     """Extrai os caminhos de arquivos de imagem de uma pasta RAW."""
     # Definição das extensões
@@ -78,10 +75,8 @@ class ImageExtractor:
 
     def extrair(self) -> list:
         """Orquestra a sequência de execução dos métodos da classe."""
-
         # Lista que armazenará todos os registros
         registros = []
-
         # Percorre todas as imagens da RAW
         for caminho in self.listar_imagens():
             imagem = self.carregar_imagem(caminho)
@@ -92,16 +87,14 @@ class ImageExtractor:
                 "matriz": imagem,
                 "metadados": metadados
             }
-
             # Adiciona o regitro a lista
             registros.append(registro)
 
         return registros
 
-#%% Execução da Classe
-RAW_DATA = Path("../data/raw")
-extractor = ImageExtractor(RAW_DATA)
+# Execução
+if __name__=="__main__":
 
-#%%
-registros = extractor.extrair()
-
+    RAW_DATA = Path("../data/raw")
+    extractor = ImageExtractor(RAW_DATA)
+    registros = extractor.extrair()
