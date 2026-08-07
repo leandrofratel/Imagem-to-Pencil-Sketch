@@ -1,0 +1,264 @@
+<mxfile host="app.diagrams.net" modified="2026-08-07T10:30:00.000Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" etag="architecture-v2" version="25.0.5" type="device">
+  <diagram id="architecture-main" name="Arquitetura do Projeto">
+    <mxGraphModel dx="1152" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Image-to-Pencil-Sketch - Arquitetura do Pipeline ETL" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="1100" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Data Layers Section -->
+        <mxCell id="data-layers" value="Camadas de Dados (Data Layers)" style="swimlane;html=1;startSize=30;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="80" width="540" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Raw Layer -->
+        <mxCell id="raw-layer" value="📁 RAW LAYER" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;fontStyle=1;align=center;verticalAlign=top;spacingTop=10;" vertex="1" parent="data-layers">
+          <mxGeometry x="20" y="50" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="raw-images" value="🖼️ Imagens Originais&#10;(Sem modificação)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FF9800;fontSize=11;align=center;" vertex="1" parent="raw-layer">
+          <mxGeometry x="10" y="10" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="raw-format" value="Formatos suportados:&#10;• JPEG, PNG, BMP&#10;• Múltiplos arquivos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FF9800;fontSize=10;align=left;" vertex="1" parent="raw-layer">
+          <mxGeometry x="10" y="90" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Silver Layer -->
+        <mxCell id="silver-layer" value="📁 SILVER LAYER" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;fontStyle=1;align=center;verticalAlign=top;spacingTop=10;" vertex="1" parent="data-layers">
+          <mxGeometry x="290" y="50" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="silver-images" value="✏️ Imagens Processadas&#10;(Efeito Pencil Sketch)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1E88E5;fontSize=11;align=center;" vertex="1" parent="silver-layer">
+          <mxGeometry x="10" y="10" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="silver-metadata" value="📊 Metadados (Parquet)&#10;• Path do arquivo&#10;• Dimensões&#10;• Timestamp processamento" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1E88E5;fontSize=10;align=left;" vertex="1" parent="silver-layer">
+          <mxGeometry x="10" y="90" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ETL Pipeline Section -->
+        <mxCell id="etl-pipeline" value="Pipeline ETL (Extract → Transform → Load)" style="swimlane;html=1;startSize=30;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="580" y="80" width="560" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Extract Stage -->
+        <mxCell id="extract-stage" value="📥 EXTRACT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#303F9F;fontSize=12;fontStyle=1;align=center;verticalAlign=top;spacingTop=10;" vertex="1" parent="etl-pipeline">
+          <mxGeometry x="20" y="50" width="160" height="280" as="geometry" />
+        </mxCell>
+
+        <mxCell id="extract-1" value="🔍 Localização&#10;das imagens" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C5CAE9;strokeColor=#3F51B5;fontSize=10;align=center;" vertex="1" parent="extract-stage">
+          <mxGeometry x="10" y="10" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="extract-2" value="📖 Leitura dos&#10;arquivos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C5CAE9;strokeColor=#3F51B5;fontSize=10;align=center;" vertex="1" parent="extract-stage">
+          <mxGeometry x="10" y="70" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="extract-3" value="📋 Coleta de&#10;metadados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C5CAE9;strokeColor=#3F51B5;fontSize=10;align=center;" vertex="1" parent="extract-stage">
+          <mxGeometry x="10" y="130" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="extract-out" value="Saída:&#10;• Imagem (numpy array)&#10;• Dict metadados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1E88E5;fontSize=9;align=left;" vertex="1" parent="extract-stage">
+          <mxGeometry x="10" y="190" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Transform Stage -->
+        <mxCell id="transform-stage" value="⚙️ TRANSFORM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;fontStyle=1;align=center;verticalAlign=top;spacingTop=10;" vertex="1" parent="etl-pipeline">
+          <mxGeometry x="200" y="50" width="180" height="280" as="geometry" />
+        </mxCell>
+
+        <mxCell id="transform-1" value="1️⃣ Grayscale&#10;RGB → Cinza" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9800;fontSize=10;align=center;" vertex="1" parent="transform-stage">
+          <mxGeometry x="10" y="10" width="160" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="transform-2" value="2️⃣ Negative&#10;Inversão de cores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9800;fontSize=10;align=center;" vertex="1" parent="transform-stage">
+          <mxGeometry x="10" y="65" width="160" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="transform-3" value="3️⃣ Gaussian Blur&#10;Desfoque (ksize=21)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9800;fontSize=10;align=center;" vertex="1" parent="transform-stage">
+          <mxGeometry x="10" y="120" width="160" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="transform-4" value="4️⃣ Pencil Sketch&#10;Dodge blend (divide)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9800;fontSize=10;align=center;" vertex="1" parent="transform-stage">
+          <mxGeometry x="10" y="175" width="160" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="transform-out" value="Saída:&#10;• Imagem processada&#10;(numpy array)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1E88E5;fontSize=9;align=left;" vertex="1" parent="transform-stage">
+          <mxGeometry x="10" y="230" width="160" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Load Stage -->
+        <mxCell id="load-stage" value="📤 LOAD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=12;fontStyle=1;align=center;verticalAlign=top;spacingTop=10;" vertex="1" parent="etl-pipeline">
+          <mxGeometry x="400" y="50" width="140" height="280" as="geometry" />
+        </mxCell>
+
+        <mxCell id="load-1" value="💾 Salvamento&#10;da imagem" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;fontSize=10;align=center;" vertex="1" parent="load-stage">
+          <mxGeometry x="10" y="10" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="load-2" value="📝 Registro&#10;metadados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#4CAF50;fontSize=10;align=center;" vertex="1" parent="load-stage">
+          <mxGeometry x="10" y="70" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="load-out" value="Destino:&#10;data/silver/&#10;• image_sketch.png&#10;• metadata.parquet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1E88E5;fontSize=9;align=left;" vertex="1" parent="load-stage">
+          <mxGeometry x="10" y="130" width="120" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows between ETL stages -->
+        <mxCell id="arrow-extract-transform" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#303F9F;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="etl-pipeline" source="extract-stage" target="transform-stage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-transform-load" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E65100;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="etl-pipeline" source="transform-stage" target="load-stage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Source Code Section -->
+        <mxCell id="source-code" value="Módulos do Código Fonte (src/)" style="swimlane;html=1;startSize=30;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="480" width="1120" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="main-py" value="🚀 main.py&#10;Orquestrador do pipeline" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#9C27B0;fontSize=11;align=center;" vertex="1" parent="source-code">
+          <mxGeometry x="20" y="40" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="extract-py" value="📥 extract.py&#10;• find_images()&#10;• read_image()&#10;• collect_metadata()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#9C27B0;fontSize=10;align=left;" vertex="1" parent="source-code">
+          <mxGeometry x="200" y="40" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="transform-py" value="⚙️ transform.py&#10;• to_grayscale()&#10;• invert_image()&#10;• gaussian_blur()&#10;• pencil_sketch()&#10;• process_pipeline()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#9C27B0;fontSize=10;align=left;" vertex="1" parent="source-code">
+          <mxGeometry x="380" y="40" width="180" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="load-py" value="📤 load.py&#10;• save_image()&#10;• save_metadata()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#9C27B0;fontSize=10;align=left;" vertex="1" parent="source-code">
+          <mxGeometry x="580" y="40" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="validation-py" value="✅ validation.py&#10;• validate_image()&#10;• validate_metadata()&#10;• check_pipeline()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#9C27B0;fontSize=10;align=left;" vertex="1" parent="source-code">
+          <mxGeometry x="760" y="40" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pyproject" value="📦 pyproject.toml&#10;uv.lock&#10;Gerenciamento de deps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#9C27B0;fontSize=10;align=left;" vertex="1" parent="source-code">
+          <mxGeometry x="940" y="40" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Technologies Section with Official Icons -->
+        <mxCell id="technologies" value="Tecnologias Utilizadas" style="swimlane;html=1;startSize=30;fillColor=#FFF8E1;strokeColor=#FF9800;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="680" width="1120" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Python Icon -->
+        <mxCell id="tech-python-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="50" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-python-label" value="Python 3.10+" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="30" y="120" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- OpenCV Icon -->
+        <mxCell id="tech-opencv-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="190" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-opencv-label" value="OpenCV (cv2)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="170" y="120" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- NumPy Icon -->
+        <mxCell id="tech-numpy-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="330" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-numpy-label" value="NumPy" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="310" y="120" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Pandas Icon -->
+        <mxCell id="tech-pandas-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="470" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-pandas-label" value="Pandas" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="450" y="120" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Pathlib Icon (Python stdlib - use Python icon with label) -->
+        <mxCell id="tech-pathlib-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="610" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-pathlib-label" value="Pathlib&#10;(stdlib)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="590" y="120" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- UV Icon -->
+        <mxCell id="tech-uv-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://raw.githubusercontent.com/astral-sh/uv/main/assets/icon.png;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="750" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-uv-label" value="UV" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="730" y="120" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- StrataScratch / Challenge Source -->
+        <mxCell id="tech-strata-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://platform.stratascratch.com/favicon.ico;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="890" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-strata-label" value="StrataScratch&#10;Challenge" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="870" y="120" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- GitHub Icon -->
+        <mxCell id="tech-github-icon" value="" style="shape=image;aspect=fixed;verticalLabelPosition=bottom;labelBackgroundColor=#FFFFFF;verticalAlign=top;image=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg;html=1;" vertex="1" parent="technologies">
+          <mxGeometry x="1010" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-github-label" value="GitHub&#10;Repository" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Helvetica;" vertex="1" parent="technologies">
+          <mxGeometry x="990" y="120" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Flow Arrows -->
+        <mxCell id="flow-raw-extract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E65100;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" edge="1" parent="1" source="raw-images" target="extract-stage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-load-silver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" edge="1" parent="1" source="load-stage" target="silver-images">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-load-silver-meta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;strokeWidth=2;endArrow=block;endFill=1;dashed=1;" edge="1" parent="1" source="load-stage" target="silver-metadata">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Code to ETL Mapping -->
+        <mxCell id="map-extract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7B1FA2;strokeWidth=1;endArrow=open;dashed=1;" edge="1" parent="1" source="extract-py" target="extract-stage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="map-transform" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7B1FA2;strokeWidth=1;endArrow=open;dashed=1;" edge="1" parent="1" source="transform-py" target="transform-stage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="map-load" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7B1FA2;strokeWidth=1;endArrow=open;dashed=1;" edge="1" parent="1" source="load-py" target="load-stage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="map-validation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7B1FA2;strokeWidth=1;endArrow=open;dashed=1;" edge="1" parent="1" source="validation-py" target="etl-pipeline">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend" value="Legenda:&#10;▪ Sólido = Fluxo principal de dados&#10;▪ Tracejado = Fluxo de dados entre camadas&#10;▪ Pontilhado = Mapeamento código → etapa" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#9E9E9E;fontSize=10;align=left;" vertex="1" parent="1">
+          <mxGeometry x="20" y="840" width="300" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

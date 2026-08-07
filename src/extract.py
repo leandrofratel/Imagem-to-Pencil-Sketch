@@ -1,7 +1,6 @@
 """Camada responsável por receber os as imagens e coletar os metadados
 """
 
-#Import da bibliotexas
 from datetime import datetime
 from pathlib import Path
 import numpy
@@ -93,7 +92,9 @@ class ImageExtractor:
 
         return registros
 
-# Execução
-RAW_DATA = Path("../data/raw")
-extractor = ImageExtractor(RAW_DATA)
-registros = extractor.extrair()
+if __name__=="__main__":
+    extrator = ImageExtractor(Path("data/raw"))
+    registros = extrator.extrair()
+    print(f"Extraidos {len(registros)} registros")
+    for r in registros[:3]:
+        print(f" -{r['metadados']['nome_arquivo']}: {r['matriz'].shape}")
