@@ -46,3 +46,7 @@ class ImageTransform:
         # Criar desenho.
         imagem_sketch = self.criar_pencil_sketch(imagem_cinza, imagem_desfocada_invertida)
         return imagem_sketch
+
+
+if __name__=="__main__":
+    ...
